@@ -20,12 +20,14 @@ app.get("/login", function(req,res){
 });
 
 app.post("/users",function(req,res){
-	var user= new User({email: req.body.email, password: req.body.password});
-	
+	var user= new User({email: req.body.email, 
+		password: req.body.password,
+		password_confirmation:req.body.password_confirmation});
+
+	console.log(user.password_confirmation);
 	user.save(function(){
 		res.send("Guardamos tus datos");	
 	});
-	
 });
 
 app.listen(3000);

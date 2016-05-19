@@ -14,6 +14,12 @@ var user_schema= new Schema({
 	date_of_birth:Date
 });
 
+user_schema.virtual("password_confirmation").get(function(){
+	return this.p_c;
+}).set(function(password){
+	this.p_c=password;
+});
+
 //Si no existe la coleccion se crea una en el plural del modelo
 //crear esquema estructura de la tabla o documento
 //crear un modelo coneccion con la db
