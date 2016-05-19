@@ -1,0 +1,8 @@
+/node_modules
+.idea
+.htaccess
+.DS_Store
+thumbs.db
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
