@@ -1,7 +1,5 @@
 var mongoose = require("mongoose");  //npm install mongoose --save
 var Schema = mongoose.Schema;
-//Colecciones => bases de datos, Modelos=> tablas
-//Esquema => columnas, Documentos => filas
 
 mongoose.connect("mongodb://localhost/fotos");
 

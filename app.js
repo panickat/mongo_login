@@ -13,25 +13,50 @@ app.get("/",function(req,res){
 });
 
 app.get("/registro", function(req,res){
-	User.find(function(err,doc){
-		console.log(doc);
-		res.render("registro");
-	});
+	res.render("registro");
 });
 
-app.post("/users",function(req,res){
+app.post("/addusr",function(req,res){
 	var user= new User({email: req.body.email, 
 		password: req.body.password,
 		password_confirmation:req.body.password_confirmation,
 		username:req.body.username
 	});
-
+	/*Save call back
 	user.save(function(err){
 		if(err){
-			console.log(String(err));
+			res.send(String(err));	
+		}else{
+			res.send("Guardamos tus datos");	
 		}
-		res.send("Guardamos tus datos");	
+	});
+	*/
+	//Save Promises
+	user.save().then(function(us){
+		res.send("Se guardo el usuario");
+	}, function(err){
+		res.send(String(err));
 	});
 });
+
+app.get("/login",function(req,res){
+	User.find(function(err,doc){
+		res.send(doc);
+	});	
+});
+
+app.post("/login",function(req,res){
+	User.findOne({email: req.body.username, password:req.body.password},function(err,doc){
+		//console.log(doc);
+		if (!doc){
+			res.send("nombre de usuario o contraseña incorrecta");
+		}else{
+			var count= Object.keys(doc).length;
+			res.send("Hola " + doc.username+ " has iniciado sesión");
+		}
+	});	
+});
+
+
 
 app.listen(3000);
