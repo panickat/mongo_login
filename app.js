@@ -12,17 +12,19 @@ app.get("/",function(req,res){
 	res.render("index");
 });
 
-app.get("/login", function(req,res){
+app.get("/registro", function(req,res){
 	User.find(function(err,doc){
 		console.log(doc);
-		res.render("login");
+		res.render("registro");
 	});
 });
 
 app.post("/users",function(req,res){
 	var user= new User({email: req.body.email, 
 		password: req.body.password,
-		password_confirmation:req.body.password_confirmation});
+		password_confirmation:req.body.password_confirmation,
+		username:req.body.username
+	});
 
 	user.save(function(err){
 		if(err){
