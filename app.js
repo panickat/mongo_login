@@ -46,7 +46,17 @@ app.get("/login",function(req,res){
 });
 
 app.post("/login",function(req,res){
-	User.findOne({email: req.body.username, password:req.body.password},function(err,doc){
+	var usr=""
+	if (req.body.username.toString().indexOf("@")>0){
+		usr="email";
+	}else{
+		usr="username";
+	}
+	var data={};
+	data[usr]=req.body.username;
+	data['password']=req.body.password;
+	
+	User.findOne(data,function(err,doc){
 		//console.log(doc);
 		if (!doc){
 			res.send("nombre de usuario o contraseña incorrecta");
@@ -57,6 +67,4 @@ app.post("/login",function(req,res){
 	});	
 });
 
-
-
-app.listen(3000);
+app.listen(8000);
